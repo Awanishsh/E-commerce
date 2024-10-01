@@ -1,8 +1,8 @@
-# React + Vite
+E-commerce
+A fully-featured e-commerce web application built using modern web technologies, offering a seamless shopping experience for users .
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Key Features User Features: Product Catalog: Browse through a wide range of products with categories, filters, and search functionality. Product Details: Detailed view of products with images, descriptions, and pricing information. Shopping Cart: Add and manage items in the cart, including quantity adjustments and total price calculation. Checkout Process: Smooth checkout experience with address, payment, and order summary steps.
 
-Currently, two official plugins are available:
+Technical Highlights: Frontend: Built with React.js for a fast and interactive user interface. State Management: Utilized Redux for managing the global state of the application.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Technologies Used Frontend: React, Redux, Tailwind CSS Hosting: Netlify
