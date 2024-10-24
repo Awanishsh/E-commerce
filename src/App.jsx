@@ -33,8 +33,8 @@ function App() {
           path="/order-confirmation"
           element={<Order order={order} />}
         ></Route>
-        <Route path="/filter-data" element={<FilterData/>}></Route>
-        <Route path="/product/:id" element={<ProductDetails />}></Route>
+        <Route path="/search-results/:searchTerm" element={<FilterData />} />
+        <Route path="/ProductDetails/:id" element={<ProductDetails />} />
       </Routes>
       <Footer />
     </BrowserRouter>

@@ -1,18 +1,18 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import emptypic from "../../Image/Empatypic.jpg";
-
 import { FaTrashAlt } from "react-icons/fa";
 import Modal from "../Modal";
 import ChangeAddress from "../ChangeAddress";
-import { removeFromCart } from "../../Redux/cartSlice";
-import { increaseQuantity } from "../../Redux/cartSlice";
-import { decreaseQuantity } from "../../Redux/cartSlice";
+import {
+  removeFromCart,
+  increaseQuantity,
+  decreaseQuantity,
+} from "../../Redux/cartSlice";
 import { useNavigate } from "react-router-dom";
 
 function Cart() {
   const cart = useSelector((state) => state.cart);
-
   const [address, setAddress] = useState("main street, 0");
   const [isModelOpen, setisModelOpen] = useState(false);
   const dispatch = useDispatch();
@@ -47,10 +47,10 @@ function Cart() {
               <div className="w-full md:w-1/4 flex items-center space-x-4">
                 <img
                   src={product.image}
-                  alt={product.name}
+                  alt=""
                   className="w-24 h-24 object-contain rounded"
                 />
-                <h3 className="text-lg font-semibold">{product.name}</h3>
+                <h3 className="text-sm font-Oswald mt-2">{product.title}</h3>
               </div>
 
               <p className="w-full md:w-1/6 text-center">${product.price}</p>
@@ -76,13 +76,14 @@ function Cart() {
               </p>
 
               <button
-                className="text-red-500 hover:text-red-700 w-full md:w-1/6 text-center"
+                className="text-red-500 hover:text-red-700 w-full md:w-1/6 text-center px-10"
                 onClick={() => dispatch(removeFromCart(product.id))}
               >
-                <FaTrashAlt />
+                <FaTrashAlt/>
               </button>
             </div>
           ))}
+
           <Modal isModelOpen={isModelOpen} setisModelOpen={setisModelOpen}>
             <ChangeAddress
               setAddress={setAddress}
@@ -91,9 +92,11 @@ function Cart() {
           </Modal>
         </div>
       ) : (
-        <div className="flex flex-col items-center justify-center py-10">
-          <img src={emptypic} alt="Empty Cart" className="h-80" />
-          <p className="text-lg font-semibold mt-4">Your cart is empty</p>
+        <div className="flex flex-col justify-center items-center m-20">
+          <img src={emptypic} alt="Empty Cart" className="w-3/4 h-auto" />
+          <p className="absolute py-5 text-4xl font-Oswald text-red-500">
+            Your cart is empty
+          </p>
         </div>
       )}
 
@@ -126,7 +129,7 @@ function Cart() {
           </div>
 
           <button
-            className="w-full bg-blue-500 text-white font-semibold py-3 px-4 rounded mt-4 hover:bg-blue-600 transition duration-300"
+            className="w-full bg-red-500 text-white font-semibold py-3 px-4 rounded mt-4 hover:bg-red-600 transition duration-300"
             onClick={() => navigate("/checkout")}
           >
             Proceed to checkout

@@ -2,57 +2,63 @@ import React from "react";
 
 function Login({ openSignUp }) {
   return (
-    <div>
-      {/* Login form title */}
-      <h2 className="text-2xl font-bold mb-4">Login</h2>
+    <div className="max-w-md mx-auto p-6 bg-white rounded-lg shadow-lg">
+      <h2 className="text-2xl font-bold mb-6 text-center">Login</h2>
       <form>
-        {/* Email input field */}
-        <div className="mb-4">
-          <label htmlFor="" className="block text-gray-700">
+        <div className="mb-6">
+          <label htmlFor="email" className="block text-gray-700 mb-2">
             Email
           </label>
           <input
+            id="email"
             type="email"
-            className="w-full px-3 py-2 border"
+            className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
             placeholder="Enter your Email"
           />
         </div>
-        
-        {/* Password input field */}
-        <div>
-          <label htmlFor="" className="block text-gray-700">
+
+        <div className="mb-6">
+          <label htmlFor="password" className="block text-gray-700 mb-2">
             Password
           </label>
           <input
+            id="password"
             type="password"
-            className="w-full px-3 py-2 border"
+            className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
             placeholder="Enter your Password"
           />
         </div>
-        
-        {/* Remember Me checkbox and Forgot Password link */}
-        <div className="mb-4 flex items-center justify-between">
-          <label htmlFor="" className="inline-flex items-center">
-            <input type="checkbox" className="form-checkbox" />
+
+        <div className="mb-6 flex items-center justify-between">
+          <label htmlFor="remember" className="inline-flex items-center">
+            <input
+              id="remember"
+              type="checkbox"
+              className="form-checkbox text-red-600"
+            />
             <span className="ml-2 text-gray-700">Remember Me</span>
           </label>
-          <a href="#" className="text-red-800">
+          <a href="#" className="text-red-600 hover:underline">
             Forgot Password?
           </a>
         </div>
-        
-        {/* Login button */}
-        <div className="mb-4">
-          <button type="submit" className="w-full bg-red-600 text-white py-2">
+
+        <div className="mb-6">
+          <button
+            type="submit"
+            className="w-full bg-red-600 text-white py-2 rounded-lg hover:bg-red-700 transition-colors"
+          >
             Login
           </button>
         </div>
       </form>
-      
-      {/* Sign-up prompt */}
-      <div className="text-center">
-        <span className="text-gray-700">Don't Have an Account?</span>
-        <button className="text-red-800" onClick={openSignUp}>
+
+      <div className="text-center mt-4">
+        <span className="text-gray-700">Don't Have an Account?</span>{" "}
+        <button
+          className="text-red-600 hover:underline focus:outline-none"
+          onClick={openSignUp}
+        >
           Sign Up
         </button>
       </div>

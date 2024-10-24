@@ -31,7 +31,7 @@ function Infosection() {
     },
   ];
   return (
-    <div className="bg-white pt-12 bd-4">
+    <div className=" pt-12 bd-4">
       <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
         {infoItems.map((item, index) => (
           <div

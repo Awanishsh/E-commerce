@@ -1,50 +1,72 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../../Redux/cartSlice";
 
 function ProductDetails() {
-  const { id } = useParams();
-  const products = useSelector((state) => state.product.products);
-  const [product, setProduct] = useState(null);
+  const { id } = useParams(); 
+  const [product, setProduct] = useState(null); 
+  const [loading, setLoading] = useState(true); 
+  const dispatch = useDispatch(); 
 
+  // Fetch product details from the Fake Store API
   useEffect(() => {
-    if (products.length > 0) {
-      const newProduct = products.find(
-        (product) => product.id === parseInt(id)
-      );
-      setProduct(newProduct);
-    }
-  }, [id, products]);
+    const fetchProduct = async () => {
+      try {
+        const res = await fetch(`https://fakestoreapi.com/products/${id}`);
+        const data = await res.json();
+
+        setProduct(data); 
+        setLoading(false); 
+      } catch (error) {
+        console.error("Error fetching product:", error);
+        setLoading(false); 
+      }
+    };
+
+    fetchProduct();
+  }, [id]);
+
+  // Handle adding the product to the cart
+  const handleAdd = () => {
+    const productToAdd = {
+      ...product,
+      quantity: 1,
+    };
+    dispatch(addToCart(productToAdd)); 
+  };
+
+  if (loading) {
+    return <div className="flex justify-center py-6">Loading...</div>;
+  }
 
   if (!product) {
     return (
-      <div className="text-center text-lg font-semibold text-red-500 mt-10">
-        Product not found
+      <div className="flex justify-center py-6">
+        <h1 className="font-bold text-3xl">Product Not Found</h1>
       </div>
     );
   }
 
   return (
-    <div className="max-w-4xl mx-auto p-8 mt-10 bg-white shadow-lg rounded-lg">
-      <div className="flex flex-col md:flex-row">
-        {/* Product Image */}
-        <div className="md:w-1/2">
-          <img
-            src={product.image}
-            alt={product.name}
-            className="w-full h-auto object-cover rounded-lg shadow-md"
-          />
-        </div>
-
-        {/* Product Details */}
-        <div className="md:w-1/2 md:pl-8 mt-6 md:mt-0">
-          <h1 className="text-4xl font-bold mb-4 text-gray-800">
-            {product.name}
-          </h1>
-          <p className="text-lg text-gray-600 mb-4">{product.description}</p>
-          <p className="text-2xl font-semibold text-green-600 mb-4">
-            Price: ${product.price}
-          </p>
+    <div className="mx-auto py-12 px-4 md:px-16 lg:px-24">
+      <div className="max-w-4xl mx-auto flex flex-col md:flex-row items-center">
+        <img
+          src={product.image}
+          alt={product.title}
+          className="w-full md:w-1/2 object-cover"
+        />
+        <div className="md:ml-8 mt-8 md:mt-0">
+          <h1 className="text-3xl font-bold">{product.title}</h1>
+          <p className="text-xl text-red-700 mt-4">${product.price}</p>
+          <p className="text-md font-Oswald mt-4">{product.description}</p>
+          <p>{product.rating}</p>
+          <button
+            className="bg-red-500 text-white px-4 py-2 mt-4 hover:bg-red-700 rounded-lg"
+            onClick={handleAdd}
+          >
+            Buy Now
+          </button>
         </div>
       </div>
     </div>

@@ -1,105 +1,113 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import shop from "../Image/shop.png"; // Logo image
-import { FaSearch, FaShoppingCart, FaUser } from "react-icons/fa"; // Importing icons
-import { useDispatch, useSelector } from "react-redux";
-import Login from "./Login"; // Login component
-import Register from "./Register"; // Register component
-import Modal from "./Modal"; // Modal component for login/register
-import { setSearchTern } from "../Redux/productSlice"; // Action to set search term
+import shop from "../Image/shop.png";
+import { FaSearch, FaShoppingCart, FaUser } from "react-icons/fa";
+import { useSelector } from "react-redux";
+import Login from "./Login";
+import Register from "./Register";
+import Modal from "./Modal";
 
 function Navbar() {
-  const [isModelOpen, setIsModelOpen] = useState(false); // State for controlling modal visibility
-  const [isLogin, setIsLogin] = useState(true); // State to toggle between login and register
-  const [search, setSearch] = useState(); // State for search input
+  const [isModelOpen, setIsModelOpen] = useState(false);
+  const [isLogin, setIsLogin] = useState(true);
+  const [search, setSearch] = useState("");
 
-  const dispatch = useDispatch(); // Redux dispatch
-  const navigate = useNavigate(); // Hook for navigation
+  const navigate = useNavigate();
+  const product = useSelector((state) => state.cart.product);
 
-  // Handle search form submission
+  // Handle form submission
   const handleSearch = (e) => {
     e.preventDefault();
-    dispatch(setSearchTern(search)); // Dispatch search term to Redux store
-    navigate("/filter-data"); // Navigate to filtered data page
+    if (search.trim() !== "") {
+      navigate(`/search-results/${search}`);
+    }
   };
 
   // Function to open signup modal
   const openSignUp = () => {
-    setIsLogin(false); // Set to register mode
-    setIsModelOpen(true); // Open modal
+    setIsLogin(false);
+    setIsModelOpen(true);
   };
 
   // Function to open login modal
   const openLogin = () => {
-    setIsLogin(true); // Set to login mode
-    setIsModelOpen(true); // Open modal
+    setIsLogin(true);
+    setIsModelOpen(true);
   };
 
-  const products = useSelector((state) => state.cart.product); // Get cart products from Redux store
-
   return (
-    <nav className="bg-white shadow-md">
-      <div className="text-lg font-bold p-4 items-center">
-        <img src={shop} alt="" className="h-26 w-20 " /> {/* Shop logo */}
-        <Link to="/">SHOPME</Link> {/* Home link */}
-      </div>
-      
-      <div className="container mx-auto px-2 md:px-16 lg:px-24 py-4 flex justify-between items-center space-x-6">
-        {/* Search form */}
-        <div className="relative flex-1 mx-4">
-          <form onSubmit={handleSearch}>
-            <input
-              type="text"
-              placeholder="Search Product"
-              className="w-full border py-2 px-4"
-              onChange={(e) => setSearch(e.target.value)} // Update search state on input change
-            />
-            <FaSearch className="absolute top-3 right-3 text-red-500" /> {/* Search icon */}
-          </form>
-        </div>
+    <nav className="shadow-md">
+      <div className="flex text-lg font-Oswald pt-4 px-4 items-center">
+        <img src={shop} alt="" className="h-16 w-16" />
+        <Link to="/" className="text-2xl font-bold ml-2">
+          SHOPME
+        </Link>
 
-        {/* Cart icon */}
-        <div className="flex items-center space-x-4">
-          <Link to="/cart" className="relative">
-            <FaShoppingCart className="text-lg size-6" />
-            {/* Display cart item count if there are products */}
-            {products.length > 0 && (
-              <span className="absolute top-0 text-xs w-3 left-3 bg-red-600 rounded-full flex justify-center items-center text-white">
-                {products.length}
-              </span>
-            )}
-          </Link>
-        </div>
+        <div className="container mx-auto flex justify-between items-center py-4 space-x-4">
+          <div className="relative flex-1 mx-4">
+            <form onSubmit={handleSearch}>
+              <input
+                type="text"
+                placeholder="Search Product"
+                className="w-full border py-2 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+              />
+              <FaSearch className="absolute top-3 right-3 text-red-500" />
+            </form>
+          </div>
 
-        {/* Login/Register button */}
-        <div>
-          <button
-            className="hidden md:block"
-            onClick={() => setIsModelOpen(true)} // Open modal on click
-          >
-            Login | Register
-          </button>
+          <div className="flex items-center space-x-4">
+            <Link to="/cart" className="relative">
+              <FaShoppingCart className="text-lg size-8" />
+              {product.length > 0 && (
+                <span className="absolute top-0 right-0 text-xs w-4 h-4 bg-red-600 rounded-full flex justify-center items-center text-white">
+                  {product.length}
+                </span>
+              )}
+            </Link>
+
+            {/* Login/Register button */}
+            <button
+              className="hidden md:block bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition"
+              onClick={() => setIsModelOpen(true)}
+            >
+              Login | Register
+            </button>
+
+            {/* User icon for mobile view */}
+            <button
+              className="block md:hidden text-lg"
+              onClick={() => setIsModelOpen(true)}
+            >
+              <FaUser />
+            </button>
+          </div>
         </div>
-        {/* User icon for mobile view */}
-        <button className="block md:hidden">
-          <FaUser />
-        </button>
       </div>
 
       {/* Navigation links */}
       <div className="flex items-center justify-center space-x-10 py-5 text-base font-bold">
-        <Link to={'/'} className="hover:underline">Home</Link>
-        <Link to="/shop" className="hover:underline">Shop</Link>
-        <Link to={'/contact'} className="hover:underline">Contact</Link>
-        <Link to={'/about'} className="hover:underline">About</Link>
+        <Link to="/" className="hover:underline font-Oswald">
+          Home
+        </Link>
+        <Link to="/shop" className="hover:underline font-Oswald">
+          Shop
+        </Link>
+        <Link to="/contact" className="hover:underline font-Oswald">
+          Contact
+        </Link>
+        <Link to="/about" className="hover:underline font-Oswald">
+          About
+        </Link>
       </div>
 
       {/* Modal for login/register */}
       <Modal isModelOpen={isModelOpen} setisModelOpen={setIsModelOpen}>
         {isLogin ? (
-          <Login openSignUp={openSignUp} /> // Show Login component
+          <Login openSignUp={openSignUp} />
         ) : (
-          <Register openLogin={openLogin} /> // Show Register component
+          <Register openLogin={openLogin} />
         )}
       </Modal>
     </nav>
