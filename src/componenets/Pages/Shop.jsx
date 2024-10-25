@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { addToCart } from "../../Redux/cartSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+
 
 const Shop = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
+
   const [shopcard, setShopcard] = useState([]);
 
   const API = "https://fakestoreapi.com/products";
@@ -33,6 +33,7 @@ const Shop = () => {
   // Handle adding product to the cart
   const handleAdd = (product) => {
     const existingProduct = cartItems.find((item) => item.id === product.id);
+    
 
     if (existingProduct) {
       dispatch(
@@ -66,6 +67,7 @@ const Shop = () => {
                 onClick={() => handleAdd(item)}
               >
                 Add to Cart
+                
               </button>
             </div>
           </div>

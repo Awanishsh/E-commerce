@@ -97,16 +97,14 @@ const Home = () => {
           </div>
 
           {/* Text Overlay */}
-          <div className="absolute top-6 left-10">
-            <h2 className="text-2xl md:text-3xl font-bold">
+          <div className="absolute top-12 left-20">
+            <h2 className="text-2xl md:text-3xl font-Oswald font-bold">
               WELCOME TO SHOPME
             </h2>
-            <p className="text-md md:text-xl mt-2.5 font-bold text-gray-800">
+            <p className="text-md md:text-xl mt-2.5 font-Oswald font-bold text-gray-800">
               MILLIONS OF PRODUCTS
             </p>
-            <button className="bg-red-600 px-4 py-1 md:px-8 md:py-2 text-white font-semibold mt-4 hover:bg-red-700 transform transition-transform duration-300 hover:scale-105 rounded-md">
-              SHOP NOW
-            </button>
+          
           </div>
         </div>
       </div>
